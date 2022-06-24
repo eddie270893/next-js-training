@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const randtoken = require('rand-token');
 const todo = require('./data/todo');
 const post = require('./data/post');
+const product = require('./data/product');
+
 const multer  = require('multer');
 const mime = require('mime-types');
 const PORT = 5000;
@@ -61,6 +63,10 @@ app.get('/', (req, res) => {
 
 app.get('/post', (req, res) => {
   res.json({ data: post.post(), total: 200, perPage: 15 })
+});
+
+app.get('/product', (req, res) => {
+  res.json({ data: product.product()})
 });
 
 app.get('/post-detail', (req, res) => {
@@ -158,10 +164,12 @@ app.post('/media', [upload.single('media'), isAuth], function (req, res, next) {
     url,
     title
   })
-  res.json({
-    url,
-    title
-  })
+  setTimeout(() => {
+    res.json({
+      url,
+      title
+    })
+  }, 4000);
 })
 
 app.get('/media', function (req, res, next) {

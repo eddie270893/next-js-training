@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   const handleLoginRefreshToken = () => {
-    axios.post("http://localhost:5000/login-refresh-token", { username, password })
+    httpClient.post("/login-refresh-token", { username, password })
     .then(res => {
       console.log(res.data)
       setStorage('my-token', res.data.token);

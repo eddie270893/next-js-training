@@ -1,6 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+
+  async rewrites() {
+    return [
+      {
+        source: '/post-static',
+        destination: '/post-static/page/1',
+      },
+    ]
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/about-old',
+        destination: '/about',
+        permanent: true,
+      },
+    ]
+  },
+
 }
 
 module.exports = nextConfig

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useRouter } from "next/router";
+import Pager from "../../../components/Pager/Pager";
 
 const PostStaticPage = (props: any) => {
   const router = useRouter();
@@ -11,28 +12,32 @@ const PostStaticPage = (props: any) => {
         {props.posts && props.posts.length > 0 && (
           <>
             {props.posts.map((item: any) => {
-              return <li key={item.id} onClick={() => router.push(`/post-static/${item.id}`)} >{item.title}</li>;
+              return (
+                <li
+                  key={item.id}
+                  onClick={() => router.push(`/post-static/${item.id}`)}
+                >
+                  {item.title}
+                </li>
+              );
             })}
           </>
         )}
       </ul>
-      <button
-        onClick={() => router.push(`/post-static/page/${page - 1}`)}
-        disabled={page === 1}
-      >
-        Previous
-      </button>
-      <button
-        onClick={() => router.push(`/post-static/page/${page + 1}`)}
-        disabled={page === props.totalPage}
-      >
-        Next
-      </button>
+      <Pager
+        path="/post-static/page"
+        currentPage={Number(props.currentPage)}
+        totalPage={Number(props.totalPage)}
+      />
     </>
   );
 };
 
-export async function getStaticProps({ params }: { params: { pageId: number } }) {
+export async function getStaticProps({
+  params,
+}: {
+  params: { pageId: number };
+}) {
   const response = await axios.get(
     `http://localhost:5000/post?page=${params.pageId}`
   );
