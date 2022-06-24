@@ -9,7 +9,9 @@ const getProduct = () => {
     {
       "productId": chance.hash({length: 15}),
       "title": chance.animal(),
-      "price": chance.integer({ min: 12, max: 200 })
+      "price": chance.integer({ min: 12, max: 200 }),
+      "description": chance.paragraph({ sentences: 10 })
+
     }
 
     posts.push(post);

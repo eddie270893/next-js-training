@@ -6,7 +6,8 @@ const randtoken = require('rand-token');
 const todo = require('./data/todo');
 const post = require('./data/post');
 const product = require('./data/product');
-
+var Chance = require('chance');
+var chance = new Chance();
 const multer  = require('multer');
 const mime = require('mime-types');
 const PORT = 5000;
@@ -40,6 +41,8 @@ const isAuth = async (req, res, next) => {
   }
 };
 
+const products = product.product();
+
 const media = [];
 
 const cors = require('cors');
@@ -66,8 +69,39 @@ app.get('/post', (req, res) => {
 });
 
 app.get('/product', (req, res) => {
-  res.json({ data: product.product()})
+  res.json({ data: products})
 });
+
+app.post('/product', (req, res) => {
+  const prod = {
+    "productId": chance.hash({length: 15}),
+    "title": req.body.title,
+    "price": req.body.price,
+    "description": req.body.description
+  }
+  products.push(prod)
+  res.json({ data: prod})
+})
+
+app.put('/product/:id', (req, res) => {
+  const prod = {
+    "productId": req.params.id,
+    "title": req.body.title,
+    "price": req.body.price,
+    "description": req.body.description
+  }
+
+  const index = products.findIndex(product => product.productId === req.params.id);
+  products[index] = prod;
+  res.json({ data: prod})
+
+})
+
+app.delete('/product/:id', (req, res) => {
+  const index = products.findIndex(product => product.productId === req.params.id);
+  products.splice(index, 1);
+  res.json({data: true})
+})
 
 app.get('/post-detail', (req, res) => {
   res.json(post.postDetail())
