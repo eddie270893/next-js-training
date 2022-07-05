@@ -1,0 +1,21 @@
+.pagination {
+  @apply mt-5;
+  :global {
+    .pagination {
+      @apply flex;
+
+      li {
+        @apply pr-1;
+        a {
+          @apply inline-block px-2 py-1 border bg-slate-900 rounded-sm text-white;
+        }
+
+        &.pagination__page--active {
+          a {
+            @apply bg-orange-400;
+          }
+        }
+      }
+    }
+  }
+}

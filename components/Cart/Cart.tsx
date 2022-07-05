@@ -8,7 +8,7 @@ const Cart = () => {
   console.log('cart component: ', cart)
 
   return (
-    <div className="text-3xl font-bold underline">Cart: {cart.totalPrice}</div>
+    <div className="text-xl">{cart.totalProducts} Product(s): ${cart.totalPrice}</div>
   )
 }
 

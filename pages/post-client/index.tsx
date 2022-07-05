@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import useQuery from '../../hooks/useQuery';
 interface BlogItem {
   title: string;
   body: string;
@@ -10,15 +11,20 @@ const PostClient = () => {
   const [blog, setBlog] = useState<BlogItem[]>();
   const [totalPage, setTotalPage] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
+
   const getData = async () => {
     const response = await axios.get(`http://localhost:5000/post?page=${page}`);
-    setBlog(response.data.data)
-    setTotalPage(Math.ceil(response.data.total/response.data.perPage))
+    return response.data;
   }
+  const { data, fetchData, isLoading } = useQuery(['post'], getData);
+
+  console.log('isLoading', isLoading);
+  console.log('data', data);
+
 
   useEffect(() => {
-    getData();
-  }, [page]);
+    fetchData();
+  }, []);
 
   return (
     <>

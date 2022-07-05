@@ -8,22 +8,10 @@ export interface CartState {
   totalPrice: number;
   products: ProductItem[]
 }
-let initialState: CartState;
-let localCart;
-
-if (typeof window !== "undefined") {
-  localCart = localStorage.getItem('cart');
-} else {
-}
-if (localCart) {
-  const tmp = JSON.parse(localCart);
-  initialState = tmp
-} else {
-  initialState = {
-    totalProducts: 0,
-    totalPrice: 0,
-    products: []
-  }
+const initialState: CartState = {
+  totalProducts: 0,
+  totalPrice: 0,
+  products: []
 }
 
 

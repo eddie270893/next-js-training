@@ -67,7 +67,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/post', (req, res) => {
-  res.json({ data: post.post(), total: 200, perPage: 15 })
+  setTimeout(() => {
+
+    res.json({ data: post.post(), total: 200, perPage: 15 })
+  }, 5000)
 });
 
 app.get('/product', (req, res) => {
